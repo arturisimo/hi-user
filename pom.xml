@@ -8,7 +8,6 @@
   <name>hi-user</name>
 
   <build>
-    <sourceDirectory>src</sourceDirectory>
     <plugins>
 		<plugin>
 		    <artifactId>maven-resources-plugin</artifactId>

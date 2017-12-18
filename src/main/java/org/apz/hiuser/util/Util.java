@@ -1,21 +1,22 @@
 package org.apz.hiuser.util;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apz.hiuser.model.User;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class Util implements Constants {
 	
-	public static User getUserForm(String query) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+	public static User getUserForm(String query) throws Exception {
 		
 		final User user = new User();
 		
@@ -37,8 +38,9 @@ public class Util implements Constants {
 					user.setPassword(encrypt(password));	
 					break;
 				case "roles":
-					String roles = URLDecoder.decode(param[1], ENCODING);
-					user.setRoles(Arrays.asList(roles.split(",")));	
+					String rolesPost = URLDecoder.decode(param[1], ENCODING);
+					final List<String> roles = getRoles(rolesPost);
+					user.setRoles(roles);	
 					break;	
 				default:
 					break;
@@ -49,7 +51,27 @@ public class Util implements Constants {
         return user;
 	}
 
-	public static String encrypt(String password) throws NoSuchAlgorithmException {
+	private static List<String> getRoles(String rolesPost) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		List<String> roles = mapper.readValue(rolesPost.getBytes(), new TypeReference<List<String>>(){});
+		
+		boolean check = false;
+		for (String rol : roles) {
+			for (ROLES rolValid : ROLES.values()) {
+				if (rol.equals(rolValid.name())) {
+					check = true;
+				}
+			}
+		}	
+		if (!check) {
+			throw new Exception("invalid rol");
+		}
+		
+		return roles;
+	}
+	
+
+	public static String encrypt(String password) throws Exception {
 		MessageDigest m = MessageDigest.getInstance(CRYPT_ALGORITHM);
 	    m.update(password.getBytes(), 0, password.length());
 	    return new BigInteger(1,m.digest()).toString(16);
@@ -62,5 +84,12 @@ public class Util implements Constants {
 		mapPages.put(PAGES.page2.name(), PAGES.page2);
 		mapPages.put(PAGES.page3.name(), PAGES.page3);
 		MAP_PAGE = Collections.unmodifiableMap(mapPages);
+	}
+	
+	public static boolean isEmpty(String string) {
+		return string == null || string.trim().isEmpty();
+	}
+	public static boolean isEmpty(List<String> list) {
+		return list == null || list.isEmpty();
 	}
 }

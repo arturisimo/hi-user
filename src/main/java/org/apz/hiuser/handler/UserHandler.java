@@ -73,7 +73,7 @@ public class UserHandler implements HttpHandler, Constants {
 	        final User user = Util.getUserForm(query);
 	        
 	        //validation
-	        if (user.getUsername() == null || user.getPassword() == null || user.getRoles() == null) {
+	        if (Util.isEmpty(user.getUsername()) || Util.isEmpty(user.getPassword()) || Util.isEmpty(user.getRoles())) {
 	        	return FEEDBACK_ERROR; 
 	        }
 	        
@@ -103,6 +103,11 @@ public class UserHandler implements HttpHandler, Constants {
 	        String query = br.readLine();
 	        
 	        final User user = Util.getUserForm(query);
+	        
+	        if (Util.isEmpty(user.getPassword()) && Util.isEmpty(user.getRoles())) {
+	        	return FEEDBACK_ERROR;
+	        }
+	        
 	        user.setUsername(userName);
 	        return userService.updateUser(user);
 		}

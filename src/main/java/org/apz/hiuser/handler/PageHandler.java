@@ -73,23 +73,7 @@ public class PageHandler implements HttpHandler, Constants {
 					handleForm(page, ERROR.SESSION_EXPIRED);
 				}
 				
-				User user = null;
-				try {
-					user = userService.getUser(session.getUsername());
-				} catch (Exception e) {
-					System.err.println(e.getMessage());
-				}
-					
-				if (user == null) {
-					handleForm(page, ERROR.UNAUTHORIZED);
-				} 
-				
-				if (user.getRoles().contains(page.getRol().name())){
-					handlePage(user.getUsername(), page);
-						
-				} else {
-					handleError(ERROR.UNAUTHORIZED);
-				}
+				handlePage(session.getUsername(), page);
 				
 			}
 		}
@@ -119,13 +103,29 @@ public class PageHandler implements HttpHandler, Constants {
 	
 	public void handlePage(String userName, PAGES page) {
 		
-		Map<String, String> params = new HashMap<>();
+		User user = null;
+		try {
+			user = userService.getUser(userName);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+			
+		if (user == null) {
+			handleForm(page, ERROR.FORBIDDEN);
+		} 
 		
-		final StringBuilder content = new StringBuilder("hello ").append(userName);
-		params.put(PARAM_PAGE, page.getTitle());
-		params.put(PARAM_CONTENT, content.toString());
-		
-		pageView.load(params);
+		if (user.getRoles().contains(page.getRol().name())){
+			Map<String, String> params = new HashMap<>();
+			
+			final StringBuilder content = new StringBuilder("hello ").append(userName);
+			params.put(PARAM_PAGE, page.getTitle());
+			params.put(PARAM_CONTENT, content.toString());
+			
+			pageView.load(params);
+				
+		} else {
+			handleError(ERROR.UNAUTHORIZED);
+		}
 		
 	}
 	
