@@ -1,16 +1,22 @@
 ## Simple JAVA Http Server
 
+Data persistence in plain text. 
+
 **Download**
 
 > git clone https://github.com/arturisimo/hi-user.git
 
 **Build**
 
+> cd hi-user/
+
 > mvn clean install resources:resources
 
 **Run**
 
-> java -jar target/hi-user-0.0.1-jar-with-dependencies.jar
+> cd target/
+
+> java -jar hi-user-0.0.1-jar-with-dependencies.jar
 
 **Web Application**
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.apz.hiuser.util.Constants.ROLES;
+import org.apz.hiuser.util.Util;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -72,7 +73,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + "]";
+		return "User [username=" + username + ", password=" + password + ", roles [" + (Util.isEmpty(roles) ?  "" : String.join(", ", roles) ) + "]" + "]";
 	}
 	
 	

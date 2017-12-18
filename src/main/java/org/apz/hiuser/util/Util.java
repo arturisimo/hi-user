@@ -3,6 +3,7 @@ package org.apz.hiuser.util;
 import java.math.BigInteger;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -55,16 +56,16 @@ public class Util implements Constants {
 		ObjectMapper mapper = new ObjectMapper();
 		List<String> roles = mapper.readValue(rolesPost.getBytes(), new TypeReference<List<String>>(){});
 		
-		boolean check = false;
+		boolean check = true;
 		for (String rol : roles) {
-			for (ROLES rolValid : ROLES.values()) {
-				if (rol.equals(rolValid.name())) {
-					check = true;
-				}
+			if (Arrays.asList(ROLES.values()).stream().filter(rolEnum -> rolEnum.name().equals(rol)).toArray().length == 0) {
+				check = false;
+				break;
 			}
-		}	
+		}
+		
 		if (!check) {
-			throw new Exception("invalid rol");
+			throw new Exception(FEEDBACK_NOVALID_ROLES);
 		}
 		
 		return roles;
@@ -91,5 +92,14 @@ public class Util implements Constants {
 	}
 	public static boolean isEmpty(List<String> list) {
 		return list == null || list.isEmpty();
+	}
+
+	public static String getUserParam(String path) {
+		try {
+			final String[] urlParams = path.split("/");
+			return urlParams[2];
+		} catch (Exception e) {
+			return null;
+		}	
 	}
 }

@@ -31,20 +31,24 @@ public class UserHandler implements HttpHandler, Constants {
 		String json = "";
 		
 		try {
+			
+			final String userName = Util.getUserParam(he.getRequestURI().getPath());
+			
 			switch (method) {
 			
 				case "GET":
-					json = getUsers(he);
+					json = userService.getUsers(userName);
 					break;
 				case "POST":
-					json = updateUser(he);
-					break;
-				case "DELETE":
-					json = deleteUser(he);
+					json = updateUser(he, userName, method);
 					break;
 				case "PUT":
 					json = addUser(he);
-					break;	
+					break;
+				case "DELETE":
+					json = userService.deleteUser(userName);
+					break;
+				
 				default:
 					json = FEEDBACK_405;
 					break;
@@ -57,11 +61,6 @@ public class UserHandler implements HttpHandler, Constants {
 		renderJSON(he, json);
 		
 	}
-
-	public String getUsers(HttpExchange he) throws Exception {
-		String userName = getUserParam(he);
-		return userService.getUsers(userName);
-	}
 	
 	public String addUser(HttpExchange he) throws Exception {
 		
@@ -70,28 +69,19 @@ public class UserHandler implements HttpHandler, Constants {
    			BufferedReader br = new BufferedReader(isr);
 	        String query = br.readLine();
 	        
-	        final User user = Util.getUserForm(query);
-	        
-	        //validation
-	        if (Util.isEmpty(user.getUsername()) || Util.isEmpty(user.getPassword()) || Util.isEmpty(user.getRoles())) {
-	        	return FEEDBACK_ERROR; 
-	        }
+	        User user;
+	        try {
+	        	user = Util.getUserForm(query);
+	        } catch (Exception e) {
+				return FEEDBACK_NOVALID_ROLES;
+			}
 	        
 	        return userService.addUser(user);
 		}
 	}
 	
-	public String deleteUser(HttpExchange he) throws Exception {
-		final String userName = getUserParam(he);
-		if (userName == null) {
-			return FEEDBACK_NO_USER;
-		}
-		return userService.deleteUser(userName);
-	}
 	
-	public String updateUser(HttpExchange he) throws Exception {
-		
-		String userName = getUserParam(he);
+	public String updateUser(HttpExchange he, String userName, String method) throws Exception {
 		
 		if (userName == null) {
 			return FEEDBACK_NO_USER;
@@ -102,11 +92,12 @@ public class UserHandler implements HttpHandler, Constants {
    			BufferedReader br = new BufferedReader(isr);
 	        String query = br.readLine();
 	        
-	        final User user = Util.getUserForm(query);
-	        
-	        if (Util.isEmpty(user.getPassword()) && Util.isEmpty(user.getRoles())) {
-	        	return FEEDBACK_ERROR;
-	        }
+	        User user;
+	        try {
+	        	user = Util.getUserForm(query);
+	        } catch (Exception e) {
+				return FEEDBACK_NOVALID_ROLES;
+			}
 	        
 	        user.setUsername(userName);
 	        return userService.updateUser(user);
@@ -129,15 +120,5 @@ public class UserHandler implements HttpHandler, Constants {
 			System.err.println(e.getMessage());
 		}
 	}
-
-	private String getUserParam(HttpExchange he) {
-		try {
-			final String[] urlParams = he.getRequestURI().getPath().split("/");
-			return urlParams[2];
-		} catch (Exception e) {
-			return null;
-		}	
-	}
-
 	
 }

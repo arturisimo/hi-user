@@ -48,39 +48,5 @@ public class UserAuthenticator extends Authenticator implements Constants {
 		
 		return result;
 	}
-	/*
-	private static User getUserForm(String query) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-		
-		final User user = new User();
-		
-		final String pairs[] = query.split("[&]");
-        for (String pair : pairs) {
-             String param[] = pair.split("[=]");
-             String key = null;
-             
-             if (param.length > 0) {
-             	key = URLDecoder.decode(param[0], ENCODING);
-             }
-             
-             switch (key) {
-				case "username":
-					user.setUsername(URLDecoder.decode(param[1], ENCODING));	
-					break;
-				case "password":
-					String password = URLDecoder.decode(param[1], ENCODING);
-					MessageDigest m = MessageDigest.getInstance("MD5");
-				    m.update(password.getBytes(), 0, password.length());
-				    user.setPassword(new BigInteger(1,m.digest()).toString(16));	
-					break;	
-				default:
-					break;
-			}
-        }
-	     
-        System.out.println(user);
-        return user;
-	}
-	*/
-	
 	
 }

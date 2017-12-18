@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.apz.hiuser.model.User;
 import org.apz.hiuser.model.dao.UserDao;
+import org.apz.hiuser.util.Constants;
+import org.apz.hiuser.util.Util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class UserService {
+public class UserService implements Constants {
 
 	private final UserDao userDao;
 	
@@ -30,14 +32,29 @@ public class UserService {
 	}
 	
 	public String deleteUser(String userName) throws Exception {
+		
+		if (userName == null) {
+			return FEEDBACK_NO_USER;
+		}
+		
 		return userDao.deleteUser(userName);
 	}
 
 	public String addUser(User user) throws Exception {
+		
+		if (Util.isEmpty(user.getUsername()) || Util.isEmpty(user.getPassword()) || Util.isEmpty(user.getRoles())) {
+        	return FEEDBACK_NO_VALID; 
+        }
+        
 		return userDao.addUser(user);
 	}
 	
 	public String updateUser(User user) throws Exception {
+		
+		if (Util.isEmpty(user.getPassword()) && Util.isEmpty(user.getRoles())) {
+        	return FEEDBACK_ERROR;
+        }
+		
 		return userDao.updateUser(user);
 	}
 	

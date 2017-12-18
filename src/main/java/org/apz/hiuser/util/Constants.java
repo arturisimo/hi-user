@@ -63,6 +63,10 @@ public interface Constants {
 	
 	String FEEDBACK_NO_USER = "{\"feedback\":\"No user\"}";
 	
+	String FEEDBACK_NO_VALID = "{\"feedback\":\"Invalid format\"}";
+	
+	String FEEDBACK_NOVALID_ROLES = "{\"feedback\":\"Invalid roles\"}";
+	
 	enum PAGES {
 		page1 ("Page 1", ROLES.PAGE_1),
 		page2 ("Page 2", ROLES.PAGE_2),
