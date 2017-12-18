@@ -1,0 +1,16 @@
+[{
+  "username" : "pepe",
+  "password" : "926e27eecdbc7a18858b3798ba99bddd",
+  "roles" : ["PAGE_1"]
+},
+{
+  "username" : "lucas",
+  "password" : "dc53fc4f621c80bdc2fa0329a6123708",
+  "roles" : [ "PAGE_1", "PAGE_2", "PAGE_3" ]
+},
+{
+  "username" : "admin",
+  "password" : "21232f297a57a5a743894a0e4a801fc3",
+  "roles" : [ "ADMIN" ]
+}
+]
