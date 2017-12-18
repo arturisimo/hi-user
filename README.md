@@ -1,6 +1,7 @@
-## Web Application JAVA Http Server
+## Simple JAVA Http Server
 
-**Download
+**Download**
+
 > git clone https://github.com/arturisimo/hi-user.git
 
 **Build**
@@ -13,11 +14,11 @@
 
 **Web Application**
 
-> http://localhost:8000  - user/password: pepe/pepe
+> [localhost:8000](http://localhost:8000) - user/password: pepe/pepe
 
 **API Users**
 
-> http://localhost:8000/users - user/password: admin/admin
+> [localhost:8000/users](http://localhost:8000/users) - user/password: admin/admin
 
 **Dependencies**
 
