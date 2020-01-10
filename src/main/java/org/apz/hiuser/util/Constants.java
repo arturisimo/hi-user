@@ -4,9 +4,11 @@ public interface Constants {
 	
 	int PORT = 8000;
 	
+	/** The user session will expire in 5 minutes from the last user action.*/
 	long SESSION_EXPIRES = 300000L;
 	
 	String ENCODING = "UTF-8";
+	
 	
 	String CRYPT_ALGORITHM = "MD5";
 	
