@@ -1,6 +1,8 @@
 ## Simple JAVA Http Server
 
-Data persistence in plain text. 
+This application have 3 different private pages and a login form. In order to access any of these private pages the user need to have a session started through the login form and to have the right role to be able to access the page.
+
+The application will also have a REST API endpoint exposing the User resource. Creating, deleting and modifying users and their permissions will be done through this API.
 
 **Download**
 
