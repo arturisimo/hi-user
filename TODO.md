@@ -1,9 +1,5 @@
 ## Implement a Web Application using the Java language.
 
-This application will have 3 different private pages and a login form. In order to access any of these private pages the user will need to have a session started through the login form and will need to have the right role to be able to access the page.
-
-The application will also have a REST API endpoint exposing the `User` resource. Creating, deleting and modifying users and their permissions will be done through this API. 
-
 
 **Functional Requirements**
 
@@ -24,8 +20,6 @@ In the case of accessing any of these private pages without a logged session the
 In the case of accessing any of these private pages with a logged session but without the necessary role to access the page the application will not allow the user to see the page returning an appropriate status code indicating that access was denied.
 
 The user model will have a `username` field, a `roles` field and a `password` field. The password field is write only and will not be exposed on read operations
-
-We are not looking for “pretty” pages so do not waste time on that, we are happy with ugly black and white pages :) Although no blinking tags please.
 
 There will be a minimum of 3 users, each of them with a different role. There might be users with several roles.
 
