@@ -34,7 +34,9 @@ public interface Constants {
 	enum ERROR {
 		OK (200, ""),
 		BAD_REQUEST (404, "Not found"),
+		/** usuario no autenticado */
 		UNAUTHORIZED (401, "Unauthorized"),
+		/** usuario autenticado pero no tiene el rol adecuado */
 		FORBIDDEN (403, "Forbidden"),
 		NOT_ALLOWED (405, "Method not allowed"),
 		INVALID_USER (200, "User/password is incorrect"),

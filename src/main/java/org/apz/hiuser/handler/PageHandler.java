@@ -65,7 +65,7 @@ public class PageHandler implements HttpHandler, Constants {
 				final HttpServerSession session = sessionService.getSession();
 				
 				if (session == null) {
-					handleForm(page, ERROR.FORBIDDEN);
+					handleForm(page, ERROR.UNAUTHORIZED);
 				} 
 			
 				if (sessionService.isExpired(session)) {
@@ -124,7 +124,7 @@ public class PageHandler implements HttpHandler, Constants {
 			pageView.load(params);
 				
 		} else {
-			handleError(ERROR.UNAUTHORIZED);
+			handleError(ERROR.FORBIDDEN);
 		}
 		
 	}

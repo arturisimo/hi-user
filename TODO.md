@@ -46,7 +46,7 @@ It is not necessary to have the users and roles in a database, it will be enough
 
 The execution of the application will be through a runnable jar that will allow us to start it through command line (“java -jar test-web-application.jar”) without having to use an application server or container
 
-The inclusión of unit test covering a good percentage of code will be a plus
+The inclusion of unit test covering a good percentage of code will be a plus
 
 The use of design patterns like MVC will be a plus. Code maintainability is very important for us
 
@@ -54,7 +54,7 @@ Using content negotiation when delivering the API resources will be highly appre
 
 Using reactive programming when/if it fits will be appreciated
 
-The application should have a dependency and build management system(gradle, mvn) to allow straightforward compilation and
+The application should have a dependency and build management system (gradle, mvn) to allow straightforward compilation and
 
 Delivery will be done uploading the code in a public git repository system like github or bitbucket.
 
